@@ -1,3 +1,4 @@
+# CASE WHERE ACHILLE OVERTAKE THE TURTLE
 import pygame
 import sys
 
@@ -10,12 +11,13 @@ window_height = 1000
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Course entre Achille et la Tortue")
 
-# Fonts
-font = pygame.font.Font(None, 36)
+# Load images for background, Achille, and the turtle
+background_image = pygame.image.load("Forest1.jpg")
+achille_image = pygame.image.load("achille.png")
+turtle_image = pygame.image.load("turtle.png")
 
-# Colors
-white = (255, 255, 255)
-black = (0, 0, 0)
+new_size = (200, 200)
+resize_img = pygame.transform.scale(turtle_image, new_size)
 
 # Define speed of Achille and the turtle by step
 achille_speed = 1
@@ -36,20 +38,16 @@ while True:
     achille_position += achille_speed
     turtle_position += turtle_speed
 
-    window.fill(white)
+    window.blit(background_image, (0, 0))
 
-    achille_text = "A"
-    turtle_text = "T"
+    # Display Achille and the turtle using their images
+    window.blit(achille_image, (achille_position, 300))
+    window.blit(resize_img, (turtle_position, 400))
 
-    font = pygame.font.Font(None, 36)
-    achille_surface = font.render(achille_text, True, black)
-    turtle_surface = font.render(turtle_text, True, black)
+    pygame.display.flip()
 
     achille_x = achille_position
     turtle_x = turtle_position
-
-    window.blit(achille_surface, (achille_x, 100))
-    window.blit(turtle_surface, (turtle_x, 200))
 
     pygame.display.flip()
 
@@ -66,7 +64,7 @@ else:
     winner_text = "It's a tie!"
 
 font = pygame.font.Font(None, 48)
-winner_surface = font.render(winner_text, True, black)
+winner_surface = font.render(winner_text, True, background_image)
 
 # Display the winner
 window.blit(winner_surface, (window_width // 2 - 200, window_height // 2))

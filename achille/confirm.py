@@ -11,9 +11,13 @@ window_height = 1000
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Course entre Achille et la Tortue")
 
-# Colors
-white = (255, 255, 255)
-black = (0, 0, 0)
+# Load images for background, Achille, and the turtle
+background_image = pygame.image.load("Forest1.jpg")
+achille_image = pygame.image.load("achille.png")
+turtle_image = pygame.image.load("turtle.png")
+
+new_size = (200, 200)
+resize_img = pygame.transform.scale(turtle_image, new_size)
 
 # Define speed of Achille and the turtle
 achille_speed = 1
@@ -43,23 +47,16 @@ while running:
         achille_position = 0
     if turtle_position < 0:
         turtle_position = 0
-    if achille_position > window_width - 20:  # Adjusted for the width of the "A" character
-        achille_position = window_width - 20
-    if turtle_position > window_width - 20:  # Adjusted for the width of the "T" character
-        turtle_position = window_width - 20
+    if achille_position > window_width - achille_image.get_width():
+        achille_position = window_width - achille_image.get_width()
+    if turtle_position > window_width - turtle_image.get_width():
+        turtle_position = window_width - turtle_image.get_width()
 
-    window.fill(white)
+    window.blit(background_image, (0, 0))
 
-    # Display Achille and the turtle positions
-    achille_text = "A"
-    turtle_text = "T"
-    
-    font = pygame.font.Font(None, 36)
-    achille_surface = font.render(achille_text, True, black)
-    turtle_surface = font.render(turtle_text, True, black)
-
-    window.blit(achille_surface, (achille_position, 300))
-    window.blit(turtle_surface, (turtle_position, 400))
+    # Display Achille and the turtle using their images
+    window.blit(achille_image, (achille_position, 300))
+    window.blit(resize_img, (turtle_position, 400))
 
     pygame.display.flip()
 
@@ -72,7 +69,7 @@ else:
     winner_text = "It's a tie!"
 
 font = pygame.font.Font(None, 48)
-winner_surface = font.render(winner_text, True, black)
+winner_surface = font.render(winner_text, True, background_image)
 
 # Display the winner
 window.blit(winner_surface, (window_width // 2 - 200, window_height // 2))
