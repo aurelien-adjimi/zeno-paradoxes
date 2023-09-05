@@ -16,7 +16,7 @@ background_image = pygame.image.load("Forest1.jpg")
 achille_image = pygame.image.load("achille.png")
 turtle_image = pygame.image.load("turtle.png")
 
-new_size = (200, 200)
+new_size = (100, 100)
 resize_img = pygame.transform.scale(turtle_image, new_size)
 
 # Define speed of Achille and the turtle
@@ -49,14 +49,14 @@ while running:
         turtle_position = 0
     if achille_position > window_width - achille_image.get_width():
         achille_position = window_width - achille_image.get_width()
-    if turtle_position > window_width - turtle_image.get_width():
-        turtle_position = window_width - turtle_image.get_width()
+    if turtle_position > window_width - resize_img.get_width():
+        turtle_position = window_width - resize_img.get_width()
 
     window.blit(background_image, (0, 0))
 
     # Display Achille and the turtle using their images
-    window.blit(achille_image, (achille_position, 300))
-    window.blit(resize_img, (turtle_position, 400))
+    window.blit(achille_image, (achille_position, 500))
+    window.blit(resize_img, (turtle_position, 700))
 
     pygame.display.flip()
 
