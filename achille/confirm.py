@@ -72,7 +72,7 @@ while running:
         window.blit(winner_surface, (window_width // 2 - 200, window_height // 2))
         pygame.display.flip()
         pygame.time.delay(2000)  # Display the message for 2 seconds
-        running = False  # End the simulation
+        running = False 
 
 # Wait for the user to close the window
 waiting = True

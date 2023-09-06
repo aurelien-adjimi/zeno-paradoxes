@@ -27,7 +27,7 @@ dichotomie = 0.0
 font = pygame.font.Font(None, 36)
 
 # Define the positions for displaying the "P"
-p_x = 20  # Initial position of "P" (left side of the window)
+p_x = 20 
 
 # Simulation loop
 running = True
