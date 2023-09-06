@@ -1,4 +1,3 @@
-# CASE WHERE ACHILLE OVERTAKE THE TURTLE
 import pygame
 import sys
 
@@ -29,7 +28,8 @@ achille_position = 0
 
 # Simulation loop
 running = True
-while True:
+
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -41,8 +41,8 @@ while True:
     window.blit(background_image, (0, 0))
 
     # Display Achille and the turtle using their images
-    window.blit(achille_image, (achille_position, 300))
-    window.blit(resize_img, (turtle_position, 400))
+    window.blit(achille_image, (achille_position, 500))
+    window.blit(resize_img, (turtle_position, 700))
 
     pygame.display.flip()
 
@@ -51,9 +51,15 @@ while True:
 
     pygame.display.flip()
 
-    # If Achille reaches the end of the window, end the race
-    if achille_x >= window_width:
-        break
+    # Check if Achille reaches the end of the window, end the race
+    if achille_x >= window_width - achille_image.get_width():
+        winner_text = "Achille has won the race!"
+        font = pygame.font.Font(None, 48)
+        winner_surface = font.render(winner_text, True, (0, 0, 0))
+        window.blit(winner_surface, (window_width // 2 - 200, window_height // 2))
+        pygame.display.flip()
+        pygame.time.delay(2000)  # Display the message for 2 seconds
+        running = False 
 
 # Verify who won the race
 if achille_position > turtle_position:
@@ -77,5 +83,8 @@ while waiting:
         if event.type == pygame.QUIT:
             waiting = False
 
-pygame.quit()
-sys.exit()
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()

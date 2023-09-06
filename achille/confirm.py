@@ -1,4 +1,3 @@
-# CASE WHERE ACHILLE NEVER GET TO THE TURTLE
 import pygame
 import sys
 
@@ -16,8 +15,11 @@ background_image = pygame.image.load("Forest1.jpg")
 achille_image = pygame.image.load("achille.png")
 turtle_image = pygame.image.load("turtle.png")
 
-new_size = (100, 100)
-resize_img = pygame.transform.scale(turtle_image, new_size)
+new_size_turtle = (200, 200)
+resize_img = pygame.transform.scale(turtle_image, new_size_turtle)
+
+new_size_achille = (200, 250)
+resize_achille = pygame.transform.scale(achille_image, new_size_achille)
 
 # Define speed of Achille and the turtle
 achille_speed = 1
@@ -29,6 +31,8 @@ achille_position = 0
 
 # Simulation loop
 running = True
+winner_text = ""
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -47,33 +51,28 @@ while running:
         achille_position = 0
     if turtle_position < 0:
         turtle_position = 0
-    if achille_position > window_width - achille_image.get_width():
-        achille_position = window_width - achille_image.get_width()
+    if achille_position > window_width - resize_achille.get_width():
+        achille_position = window_width - resize_achille.get_width()
     if turtle_position > window_width - resize_img.get_width():
         turtle_position = window_width - resize_img.get_width()
 
     window.blit(background_image, (0, 0))
 
     # Display Achille and the turtle using their images
-    window.blit(achille_image, (achille_position, 500))
+    window.blit(resize_achille, (achille_position, 550))
     window.blit(resize_img, (turtle_position, 700))
 
     pygame.display.flip()
 
-# Verify who won the race
-if achille_position > turtle_position:
-    winner_text = "Achille has won the race!"
-elif turtle_position > achille_position:
-    winner_text = "The turtle won the race!"
-else:
-    winner_text = "It's a tie!"
-
-font = pygame.font.Font(None, 48)
-winner_surface = font.render(winner_text, True, background_image)
-
-# Display the winner
-window.blit(winner_surface, (window_width // 2 - 200, window_height // 2))
-pygame.display.flip()
+    # Check if the turtle wins the race
+    if turtle_position >= window_width - resize_img.get_width():
+        winner_text = "The turtle has won the race!"
+        font = pygame.font.Font(None, 48)
+        winner_surface = font.render(winner_text, True, (0, 0, 0))
+        window.blit(winner_surface, (window_width // 2 - 200, window_height // 2))
+        pygame.display.flip()
+        pygame.time.delay(2000)  # Display the message for 2 seconds
+        running = False  # End the simulation
 
 # Wait for the user to close the window
 waiting = True
@@ -84,4 +83,3 @@ while waiting:
 
 pygame.quit()
 sys.exit()
-
